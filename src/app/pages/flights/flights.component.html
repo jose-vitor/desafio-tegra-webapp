@@ -1,0 +1,71 @@
+<mat-card>
+
+  <mat-card-subtitle>Buscar voos</mat-card-subtitle>
+
+  <mat-card-content>
+
+    <form name="form" #form="ngForm">
+      <div style="display: inline-block;width: 30%;">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Selecione a origem do voo:</mat-label>
+          <mat-select role="option" [(value)]="flight.departure" required>
+            <mat-option>Selecione um aeroporto</mat-option>
+            <mat-option *ngFor="let item of airports" [value]="item.code">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style=" display: inline-block;width: 30%;margin-left: 10px;">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Selecione o destino do voo:</mat-label>
+          <mat-select [(value)]="flight.arrive" required>
+            <mat-option>Selecione um aeroporto</mat-option>
+            <mat-option *ngFor="let item of airports" [value]="item.code">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style="display: inline-block;width: 20%;margin-left: 10px;">
+        <mat-form-field>
+          <input matInput [min]="dateValidator.min" [max]="dateValidator.max" [(ngModel)]="flight.viewDate" name="date"
+            #date="ngModel" [matDatepicker]="picker" placeholder="Data do voo" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div style="display: inline-block;">
+        <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="getFlights();">Buscar</button>
+      </div>
+    </form>
+
+  </mat-card-content>
+
+</mat-card>
+
+<section [hidden]="!flights.length" style="margin-top:20px;">
+  <mat-card>
+    <mat-card-subtitle>Voos</mat-card-subtitle>
+    <mat-card-content>
+      <table style="width: 100%" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+        <thead>
+          <tr>
+            <th>Voo</th>
+            <th>Saida</th>
+            <th>Chegada</th>
+            <th mat-sort-header="time">Tempo Total de voo</th>
+            <th mat-sort-header="price">Preço</th>
+            <th>Operadora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let flight of flights">
+            <td>{{flight.code}}</td>
+            <td>{{flight.departureTime}}</td>
+            <td>{{flight.arriveTime}}</td>
+            <td>{{flight.time}}</td>
+            <td>{{flight.price}}</td>
+            <td>{{flight.provider}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</section>
