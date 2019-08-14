@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { FlightsComponent } from './pages/flights/flights.component';
 import { CustomMaterialModule } from './shared/custom-material.module';
 import { FormsModule } from '@angular/forms';
+import { FlightsFilterComponent } from './pages/flights/flights-filter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FlightsComponent
+    FlightsComponent,
+    FlightsFilterComponent
   ],
   imports: [
     BrowserModule,
